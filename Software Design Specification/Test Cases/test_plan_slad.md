@@ -40,18 +40,8 @@ Recipe price should be equal to the sum of all ingredients
 Recipe price should be placed onto the Budget Object for User
 RecipeID should be Unique
 
+## Structural Testing (Login FlowChart)
 
-
-
-
-
-
-
-
-
-
-
-Structural Testing (Login FlowChart)
 
 
 
