@@ -41,6 +41,6 @@ Recipe price should be placed onto the Budget Object for User
 RecipeID should be Unique
 
 ## Structural Testing (Login FlowChart)
-![alt text](https://github.com/RealSladX/FindMyMeal/[Software Design Specification]/[Test Cases]/[Structural Test].png?raw=true)
+![alt text](https://github.com/RealSladX/FindMyMeal/'Software Design Specification'/'Test Cases'/'Structural Test.png'?raw=true)
 
 
