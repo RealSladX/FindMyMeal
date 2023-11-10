@@ -46,7 +46,7 @@
 - python: [builtin support](https://www.mongodb.com/languages/python)
 - C#: [MongoDB .NET Driver API](https://mongodb.github.io/mongo-csharp-driver/2.22/html/R_Project_CSharpDriverDocs.htm)
 - Java: [MongoDB Java](https://www.mongodb.com/languages/java)
-- Javascript: [MongoDB Node.js Driver]((https://mongodb.github.io/node-mongodb-native/6.2/))
+- Javascript: [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/6.2/)
 
 ### Cloud Storage
 - [MongoDB Atlas](https://www.mongodb.com/products/platform/cloud#atlasMDB)
