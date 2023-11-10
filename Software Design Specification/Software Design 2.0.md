@@ -1,7 +1,12 @@
 # Software Architecture Diagram
 ![alt text](https://github.com/RealSladX/FindMyMeal/blob/5081c52f3004c76ea10ab4f18cb12534b0ba4f4b/Software%20Design%20Specification/Data%20Management%20Strategy/SoftwareDesignSpecification.drawio.png)
 
-Data management for FindMyMeal would need the following databases: A database for Ingredients (“Pantry”). A database for Recipes (“Recipe Book”). A database for User Information. A database for Planners ("Planner Archive"). A database for Stores.
+## Databases for FindMyMeal
+- A database for Ingredients (“Pantry”)
+- A database for Recipes (“Recipe Book”)
+- A database for User Information
+- A database for Planners ("Planner Archive")
+- A database for Stores.
 
 # Data Management Strategy
 
