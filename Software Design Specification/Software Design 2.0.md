@@ -67,3 +67,188 @@
 			["flour", 750, "g"],
 			["apple", 5, "each"],
 		]
+	},
+	{
+		id: 1,
+		name: "recipe two",
+		servings: 1,
+		ingredients: [
+			["noodles", 200, "g"],
+			["ground beef", 250, "g"],
+			["onion", 100, "g"],
+		]
+	},
+	
+	],
+	pantry: [
+		["sugar", 500, "g"],
+		["rice", 2, "kg"],
+		["apple", 25, "each"],
+		["milk", 750, "mL"],
+	]
+}
+```
+### Same RecipeBook exported as base64 
+
+`eyJ2ZXJzaW9uIjoxLCJyZWNpcGVib29rIjpbeyJuYW1lIjoicmVjaXBlIG9uZSIsInNlcnZpbmdzIjoyLCJpbmdyZWRpZW50cyI6W1sid2F0ZXIiLDI1MCwibUwiXSxbImZsb3VyIiw3NTAsImciXSxbImFwcGxlIiw1LCJlYWNoIl1dfSx7Im5hbWUiOiJyZWNpcGUgdHdvIiwic2VydmluZ3MiOjEsImluZ3JlZGllbnRzIjpbWyJub29kbGVzIiwyMDAsImciXSxbImdyb3VuZCBiZWVmIiwyNTAsImciXSxbIm9uaW9uIiwxMDAsImciXV19XSwicGFudHJ5IjpbWyJzdWdhciIsNTAwLCJnIl0sWyJyaWNlIiwyLCJrZyJdLFsiYXBwbGUiLDI1LCJlYWNoIl0sWyJtaWxrIiw3NTAsIm1MIl1dfQ==`
+
+### Sample Password Salting Function
+``` javascript
+const mongoose = require("mongoose")
+const bcrypt = require("bcryptjs")
+
+const UserSchema = new mongoose.Schema({
+  username: String,
+  password: String
+})
+
+UserSchema.pre("save", function (next) {
+  const user = this
+
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function (saltError, salt) {
+      if (saltError) {
+        return next(saltError)
+      } else {
+        bcrypt.hash(user.password, salt, function(hashError, hash) {
+          if (hashError) {
+            return next(hashError)
+          }
+
+          user.password = hash
+          next()
+        })
+      }
+    })
+  } else {
+    return next()
+  }
+})
+
+```
+
+### Example MongoDB Document for FindMyMeal User
+```javascript
+{
+   "_id": ObjectId(“),
+   "first_name": "Ron",
+   "last_name": "Swandaughter",
+   "user_name": "UserName",
+   "password": "password",
+   “Email”: “email@email.com”, 
+   “Recipe Book”: (see below),
+   "Pantry": (see below),
+   "location": [ -86.536632, 39.170344 ],
+   “Budget”: Budget,
+   “Planner Archive”: Planner Archive
+}
+```
+
+### Example Document for Recipe Book
+```javascipt
+"Recipe Book": [
+	{
+“Recipe Name”: recipename,
+	“Recipe Serving”: 3,
+	“Ingredients”: [ 
+		{
+	“Ingredient Name”: ingredientname,
+		“Ingredient Type”: Ingredient Type,
+		“Ingredient Count For Recipe”: Ingredient Count for recipe
+		},
+		{
+	“Ingredient Name”: ingredientname,
+		“Ingredient Type”: Ingredient Type,
+		“Ingredient Count For Recipe”: Ingredient Count for recipe
+		},
+	…
+]
+}
+    ]
+```
+
+### Example Document for Pantry
+```javascript
+“Pantry”: [
+	{
+	“Ingredient Name”: ingredientname,
+	“Ingredient Type”: Ingredient Type,
+	“Ingredient Count in Pantry”: Ingredient Count in Pantry
+	},
+	{
+	“Ingredient Name”: ingredientname,
+	“Ingredient Type”: Ingredient Type,
+	“Ingredient Count in Pantry”: Ingredient Count in Pantry
+	},
+{
+	“Ingredient Name”: ingredientname,
+	“Ingredient Type”: Ingredient Type,
+	“Ingredient Count in Pantry”: Ingredient Count in Pantry
+	},
+	…
+]
+```
+### Example Document for Planner Archive
+```javascript
+"Planner Archive": [
+	{
+“Planner Name”: Planner Name,
+	“Planner Entry”: [
+{
+	“Day”: Monday
+		“Meals”: [Recipe1, Recipe5, Recipe2]
+},
+{
+	“Day”: Tuesday
+		“Meals”: [Recipe1, Recipe5, Recipe2]
+},
+{
+	“Day”: Wednesday
+		“Meals”: [Recipe1, Recipe5, Recipe2]
+},
+{
+	“Day”: Thursday
+		“Meals”: [Recipe1, Recipe5, Recipe2]
+},
+{
+	“Day”: Friday
+		“Meals”: [Recipe1, Recipe5, Recipe2]
+},
+]
+},
+{
+“Planner Name”: Planner Name,
+	“Planner Entry”: [
+{
+	“Day”: Monday
+		“Meals”: [Recipe6, Recipe3, Recipe7]
+},
+{
+	“Day”: Tuesday
+		“Meals”: [Recipe6, Recipe3, Recipe7]
+},
+{
+	“Day”: Wednesday
+		“Meals”: [Recipe6, Recipe3, Recipe7]
+},
+{
+	“Day”: Thursday
+		“Meals”: [Recipe6, Recipe3, Recipe7]
+},
+{
+	“Day”: Friday
+		“Meals”: [Recipe6, Recipe3, Recipe7]
+},
+]
+},
+    ]
+
+```
+
+## Strategic Reasoning in Data Management
+
+Having information stored in Documents in a cloud service such as MongoDB provides less strain on our local resources. It guarantees data integrity in the event of an emergency on our servers. Given our Software’s requirements to be able to manage sessions for creating recipes and constantly updating the state of an accounts budget, ingredients, recipes, and planners. This is to ensure FindMyMeal is accurate in reminding the user of things such as when recipes are or are not craftable, when ingredients are no longer in their pantry and when the budget is low. This complex behavior combined with the fact that it will be replicated as more users join.
+
+When comparing to alternatives for Data Management the cons outweighed the pros. SQL based databases such as SQLite are restricted in size and will not be effective in the long run for FindMyMeal's growing user base. Our software requires a centralized database to house dynamic data. The hardware available for SQL is very limited. Additionally, the exploration of a hybrid SQL NoSQL approach proved quickly to be very complex. Having certain data be SQL and others be NoSQL when the data had to be related is very inefficient. One method had to be the master method.
+
+
