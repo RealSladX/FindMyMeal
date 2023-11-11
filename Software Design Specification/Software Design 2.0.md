@@ -24,8 +24,7 @@
 1. The software will include the use of MongoDB, a NoSQL "Database as a Service", for Document Storage, Cloud Management, and Password Salting. Additional providers can be implemented as needed and selected based on configuration. 
 2. The software will store user data in external files, cloud storage container, as configured. The DaaS will protect these files by backing them up or using an encrypted filesystem. 
 3. The storage layer will be performant enough to accommodate a reasonable number of recipes and ingredients for an individual user on the targeted hardware platform(s).
-4. The software will serialize user settings and data as JSON objects, either using built-in language features or common industry standard parsing libraries.
-5. To allow users to easily import/export their saved data on platforms where they don't have direct access to or control over the saved data files, the program interface will include a function to export the recipe book and ingredient list as a raw JSON object encoded as a base64 string, and import using the same format.
+4. To allow users to easily import/export their saved data on platforms where they don't have direct access to or control over the saved data files, the program interface will include a function to export the recipe book and ingredient list as a raw JSON object encoded as a base64 string, and import using the same format.
 
 ## Strengths
 
